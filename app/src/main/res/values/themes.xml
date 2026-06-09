@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Skinwalker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/profile_blue</item>
+        <item name="colorPrimaryVariant">@color/profile_blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/android_green</item>
+        <item name="colorSecondaryVariant">@color/android_green</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">@color/canvas</item>
+        <item name="android:fontFamily">sans</item>
+    </style>
+</resources>

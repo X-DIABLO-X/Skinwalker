@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="canvas">#101419</color>
+    <color name="surface">#171C22</color>
+    <color name="surface_inset">#11161C</color>
+    <color name="graphite_900">#F4F7FA</color>
+    <color name="graphite_700">#D7DEE6</color>
+    <color name="graphite_600">#B8C2CC</color>
+    <color name="graphite_500">#8E9AA7</color>
+    <color name="graphite_400">#6C7885</color>
+    <color name="profile_blue">#4F83FF</color>
+    <color name="profile_blue_dark">#245CE3</color>
+    <color name="profile_blue_soft">#182744</color>
+    <color name="parallel_purple">#8B5CF6</color>
+    <color name="parallel_purple_dark">#5B2DCA</color>
+    <color name="parallel_purple_soft">#24183E</color>
+    <color name="android_green">#4CC47A</color>
+    <color name="android_green_soft">#163322</color>
+    <color name="amber_900">#F7C66A</color>
+    <color name="amber_soft">#37280D</color>
+    <color name="border">#2A333D</color>
+    <color name="border_soft">#222A33</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
