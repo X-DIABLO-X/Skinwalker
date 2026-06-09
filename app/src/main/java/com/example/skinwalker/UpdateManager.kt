@@ -167,7 +167,7 @@ class UpdateManager(private val context: Context) {
     private companion object {
         const val KEY_REPO_SLUG = "github_repo_slug"
         const val KEY_GITHUB_TOKEN = "github_token"
-        const val DEFAULT_REPO_SLUG = ""
+        const val DEFAULT_REPO_SLUG = "X-DIABLO-X/Skinwalker"
         const val APK_MIME_TYPE = "application/vnd.android.package-archive"
         const val JSON_ACCEPT = "application/vnd.github+json"
         const val APK_ASSET_ACCEPT = "application/octet-stream"
