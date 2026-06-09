@@ -285,17 +285,8 @@ class MainActivity : AppCompatActivity() {
             }
         }.start()
 
-        content.addView(sectionTitle(getString(R.string.engine_status)))
-        content.addView(settingsRow(virtualEngine.name, nativeDiagnostics(), null))
-
         content.addView(sectionTitle(getString(R.string.updates)))
         content.addView(settingsRow(getString(R.string.current_version), updateManager.currentVersionText(), null))
-        content.addView(settingsRow(getString(R.string.github_repo), updateManager.repoDisplay()) {
-            showGithubRepoDialog()
-        })
-        content.addView(settingsRow(getString(R.string.github_token), updateManager.tokenDisplay()) {
-            showGithubTokenDialog()
-        })
         content.addView(settingsRow(getString(R.string.check_updates), getString(R.string.check_updates_detail)) {
             dialog.dismiss()
             checkForUpdates()
@@ -305,47 +296,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showGithubRepoDialog() {
-        val input = EditText(this).apply {
-            hint = "owner/repo"
-            inputType = InputType.TYPE_CLASS_TEXT
-            setSingleLine()
-            setText(updateManager.repoSlug())
-        }
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.github_repo))
-            .setView(input)
-            .setNegativeButton(getString(R.string.cancel), null)
-            .setPositiveButton(getString(R.string.save)) { _, _ ->
-                updateManager.saveRepoSlug(input.text.toString())
-                Toast.makeText(this, getString(R.string.github_repo_saved), Toast.LENGTH_SHORT).show()
-            }
-            .show()
-    }
-
-    private fun showGithubTokenDialog() {
-        val input = EditText(this).apply {
-            hint = "ghp_... or fine-grained token"
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            setSingleLine()
-            setText(updateManager.githubToken())
-        }
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.github_token))
-            .setView(input)
-            .setNegativeButton(getString(R.string.cancel), null)
-            .setPositiveButton(getString(R.string.save)) { _, _ ->
-                updateManager.saveGithubToken(input.text.toString())
-                Toast.makeText(this, getString(R.string.github_token_saved), Toast.LENGTH_SHORT).show()
-            }
-            .show()
-    }
-
     private fun checkForUpdates() {
-        if (updateManager.repoSlug().isBlank()) {
-            showGithubRepoDialog()
-            return
-        }
         Toast.makeText(this, getString(R.string.checking_updates), Toast.LENGTH_SHORT).show()
         Thread {
             val result = updateManager.checkForUpdate()
@@ -368,7 +319,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForUpdatesOnStartup() {
-        if (updateManager.repoSlug().isBlank() || startupUpdateCheckRunning) return
+        if (startupUpdateCheckRunning) return
         startupUpdateCheckRunning = true
         Thread {
             val result = updateManager.checkForUpdate()
@@ -648,8 +599,6 @@ class MainActivity : AppCompatActivity() {
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
 
     private fun color(colorId: Int): Int = ContextCompat.getColor(this, colorId)
-
-    external fun nativeDiagnostics(): String
 
     companion object {
         init {

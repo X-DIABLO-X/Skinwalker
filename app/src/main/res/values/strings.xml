@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Skinwalker</string>
-    <string name="engine_status">Engine status</string>
     <string name="add">Add</string>
     <string name="back">Back</string>
     <string name="add_apps_title">Add apps</string>
@@ -37,10 +36,6 @@
     <string name="calculating">Calculating...</string>
     <string name="updates">Updates</string>
     <string name="current_version">Current version</string>
-    <string name="github_repo">GitHub repo</string>
-    <string name="github_repo_saved">GitHub repo saved.</string>
-    <string name="github_token">GitHub token</string>
-    <string name="github_token_saved">GitHub token saved.</string>
     <string name="check_updates">Check for updates</string>
     <string name="check_updates_detail">Look for a newer APK from GitHub Releases.</string>
     <string name="checking_updates">Checking for updates...</string>

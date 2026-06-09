@@ -12,7 +12,6 @@ import java.net.URL
 class UpdateManager(private val context: Context) {
 
     private val appContext = context.applicationContext
-    private val preferences = appContext.getSharedPreferences("skinwalker_updates", Context.MODE_PRIVATE)
 
     fun currentVersionText(): String {
         return "${currentVersionName()} (${currentVersionCode()})"
@@ -31,30 +30,9 @@ class UpdateManager(private val context: Context) {
         return info.versionName ?: "0.0.0"
     }
 
-    fun repoSlug(): String = preferences.getString(KEY_REPO_SLUG, DEFAULT_REPO_SLUG).orEmpty()
-
-    fun saveRepoSlug(value: String) {
-        preferences.edit().putString(KEY_REPO_SLUG, value.trim()).apply()
-    }
-
-    fun githubToken(): String = preferences.getString(KEY_GITHUB_TOKEN, "").orEmpty()
-
-    fun saveGithubToken(value: String) {
-        preferences.edit().putString(KEY_GITHUB_TOKEN, value.trim()).apply()
-    }
-
-    fun repoDisplay(): String = repoSlug().ifBlank { "Not configured" }
-
-    fun tokenDisplay(): String = if (githubToken().isBlank()) "Not configured" else "Configured"
-
     fun checkForUpdate(): UpdateCheckResult {
-        val slug = repoSlug()
-        if (slug.isBlank() || !slug.contains("/")) {
-            return UpdateCheckResult.Error("Configure a GitHub repo like owner/repo first.")
-        }
-
         return runCatching {
-            val json = githubGetJson("https://api.github.com/repos/$slug/releases/latest")
+            val json = githubGetJson("https://api.github.com/repos/$DEFAULT_REPO_SLUG/releases/latest")
             val release = JSONObject(json)
             val assets = release.optJSONArray("assets")
             val asset = (0 until (assets?.length() ?: 0))
@@ -132,10 +110,6 @@ class UpdateManager(private val context: Context) {
         connection.instanceFollowRedirects = true
         connection.setRequestProperty("Accept", if (acceptBinary) APK_ASSET_ACCEPT else JSON_ACCEPT)
         connection.setRequestProperty("X-GitHub-Api-Version", GITHUB_API_VERSION)
-        val token = githubToken()
-        if (token.isNotBlank()) {
-            connection.setRequestProperty("Authorization", "Bearer $token")
-        }
         return connection
     }
 
@@ -165,8 +139,6 @@ class UpdateManager(private val context: Context) {
     }
 
     private companion object {
-        const val KEY_REPO_SLUG = "github_repo_slug"
-        const val KEY_GITHUB_TOKEN = "github_token"
         const val DEFAULT_REPO_SLUG = "X-DIABLO-X/Skinwalker"
         const val APK_MIME_TYPE = "application/vnd.android.package-archive"
         const val JSON_ACCEPT = "application/vnd.github+json"
