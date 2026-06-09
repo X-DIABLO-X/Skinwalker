@@ -144,8 +144,8 @@ class UpdateManager(private val context: Context) {
         val releaseName = release.optString("name")
         val tagName = release.optString("tag_name")
         return extractNumber(assetName)
-            ?: extractNumber(releaseName)
             ?: extractNumber(tagName)
+            ?: extractNumber(releaseName)
             ?: error("Could not determine versionCode from the latest release.")
     }
 
